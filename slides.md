@@ -72,7 +72,8 @@ That is it!
 > - [AppVeyor](http://www.appveyor.com/) &#10139; Windows
 > - [Travis-CI](https://travis-ci.org/) &#10139; OSX
 > - [Centos docker container](https://registry.hub.docker.com/u/ocefpaf/centos64-conda-obvious-ci/) &#10139; Linux
-> - (Or just forget about all that and go to @pelson's talk tomorrow!) 
+> - The builds are manage by [Obvious-CI](https://github.com/pelson/Obvious-CI)
+> - (But you can just forget about all that and watch @pelson's talk tomorrow!) 
 
 # PRs
 
