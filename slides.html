@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Conda: A love and hate story</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #2a211c; color: #bdae9d; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #2a211c; color: #bdae9d; border-right: 1px solid #bdae9d; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #bdae9d; background-color: #2a211c; }
+code > span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code > span.dt { text-decoration: underline; } /* DataType */
+code > span.dv { color: #44aa43; } /* DecVal */
+code > span.bn { color: #44aa43; } /* BaseN */
+code > span.fl { color: #44aa43; } /* Float */
+code > span.ch { color: #049b0a; } /* Char */
+code > span.st { color: #049b0a; } /* String */
+code > span.co { color: #0066ff; font-style: italic; } /* Comment */
+code > span.al { color: #ffff00; } /* Alert */
+code > span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code > span.er { color: #ffff00; font-weight: bold; } /* Error */
+code > span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #049b0a; } /* SpecialChar */
+code > span.vs { color: #049b0a; } /* VerbatimString */
+code > span.ss { color: #049b0a; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code > span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code > span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="slides.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Conda: A love and hate story</h1>
+    <h3 class="date"></h3>
+</section>
+
+<section id="who-am-i" class="slide level1">
+<h1>Who am I?</h1>
+<figure>
+<img src="images/twitter.png" alt="" />
+</figure>
+<figure>
+<img src="images/github.png" alt="" />
+</figure>
+<ul>
+<li class="fragment">(or Filipe Fernandes)</li>
+</ul>
+</section>
+<section id="the-problem" class="slide level1">
+<h1>The problem</h1>
+<ul>
+<li>Integrated Ocean Observing System (IOOS) likes python,</li>
+<li>but, but...</li>
+</ul>
+<figure>
+<img src="images/io_0002s_0003_layer10copy3_med.jpg" alt="" />
+</figure>
+<ul>
+<li>... how to get hundreds of scientist using different platforms, and a myriad of configurations to reproduce their results?</li>
+</ul>
+<blockquote>
+<p>Or just to <strong>get it</strong> running!!!</p>
+</blockquote>
+</section>
+<section id="can-conda-do-it" class="slide level1">
+<h1>Can conda do it?</h1>
+<ul>
+<li class="fragment">I like to think I am a dedicated &quot;sysadmin.&quot;</li>
+<li class="fragment">Maybe almost like this guy <img src="images/devotion_to_duty.png" alt="" /></li>
+<li class="fragment">So when my boss told me to consider conda I promptly answer:</li>
+<li class="fragment"><strong>NO!</strong></li>
+<li class="fragment">We need stable tools like <code>pip</code> and <code>virtualenv</code></li>
+<li class="fragment">Build a binary in your local machine? Upload it? Someone else will install that thing? <strong>NO WAY!!!</strong></li>
+</ul>
+</section>
+<section id="the-ioos-binstar-anaconda-channel" class="slide level1">
+<h1>The IOOS <del>Binstar</del> Anaconda Channel</h1>
+<ul>
+<li class="fragment">107 packages active packages. (Some made it into the default channel and were deprecated along the way.)</li>
+<li class="fragment">Linux, Windows and OSX</li>
+<li class="fragment">Some really hard to compile like <code>iris</code>, <code>nco</code> and <code>gridgen</code>...</li>
+<li class="fragment">...are now available via just <code>conda install -c ioos iris</code></li>
+</ul>
+</section>
+<section id="how-we-use-it" class="slide level1">
+<h1>How we use it?</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">
+<span class="kw">conda</span> config --add channels ioos
+
+<span class="kw">wget</span> http://bit.ly/ioos_req -O ioos_req.txt
+
+<span class="kw">conda</span> create --yes -n IOOS --file ioos_req.txt python=2.7
+
+<span class="kw">export</span> <span class="ot">PATH=$HOME</span>/miniconda/bin:<span class="ot">$PATH</span> <span class="kw">&amp;&amp;</span> <span class="kw">source</span> activate IOOS</code></pre></div>
+<div class="fragment">
+<p>That is it!</p>
+</div>
+</section>
+<section id="downloads" class="slide level1">
+<h1>Downloads</h1>
+<figure>
+<img src="images/downloads.svg" alt="" />
+</figure>
+</section>
+<section id="packages-per-os" class="slide level1">
+<h1>Packages per OS</h1>
+<h2 id="linux-and-osx-107">Linux and OSX: 107</h2>
+<h2 id="windows-90">Windows: 90</h2>
+</section>
+<section id="how-we-do-it" class="slide level1">
+<h1>How we do it?</h1>
+<ul>
+<li class="fragment">Conda recipes are hosted on GitHub</li>
+<li class="fragment"><a href="http://www.appveyor.com/">AppVeyor</a> ➛ Windows</li>
+<li class="fragment"><a href="https://travis-ci.org/">Travis-CI</a> ➛ OSX</li>
+<li class="fragment"><a href="https://registry.hub.docker.com/u/ocefpaf/centos64-conda-obvious-ci/">Centos docker container</a> ➛ Linux</li>
+<li class="fragment">(Or just forget about all that and go to <span class="citation" data-cites="pelson">@pelson</span>'s talk tomorrow!)</li>
+</ul>
+</section>
+<section id="prs" class="slide level1">
+<h1>PRs</h1>
+<figure>
+<img src="images/github_pr.png" alt="" />
+</figure>
+</section>
+<section id="issues" class="slide level1">
+<h1>Issues</h1>
+<figure>
+<img src="images/github_issues.png" alt="" />
+</figure>
+</section>
+<section id="how-to-contribute" class="slide level1">
+<h1>How to contribute?</h1>
+<ul>
+<li class="fragment">Improve the <a href="https://github.com/ioos/conda-recipes/wiki">Wiki</a></li>
+<li class="fragment">Report problems in our <a href="https://github.com/ioos/conda-recipes/issues">Issues page</a></li>
+<li class="fragment">Requests packages</li>
+<li class="fragment">Pull Requests are even better ;-)</li>
+</ul>
+</section>
+<section id="thanks" class="slide level1">
+<h1>Thanks!</h1>
+<figure>
+<img src="images/compiling.png" alt="http://xkcd.com/303/" /><figcaption>http://xkcd.com/303/</figcaption>
+</figure>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p><em>We would like to thank SECOORA for the funding support. We would also like to thank the contributions of members of NOAA/IOOS, and Principal investigators.</em></p>
+<p><strong>Special thanks to SciPy for the financial aid</strong></p>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: false,                // Display the page number of the current slide
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
