@@ -14,7 +14,7 @@ def todatetime(string):
         delta = relativedelta(months=int(number))
     elif 'hour' in period:
         delta = relativedelta(hours=int(number))
-    elif 'mintues' in period:
+    elif 'minutes' in period:
         delta = relativedelta(minutes=int(number))
     else:
         raise ValueError("Unexpected period {!r}".format(period))
@@ -34,7 +34,7 @@ def get_df(package):
     url = "https://binstar.org/IOOS/{}/files".format
     r = requests.get(url(package))
     r.raise_for_status()
-    soup = BeautifulSoup(r.text)
+    soup = BeautifulSoup(r.text, "lxml")
     table = soup.find("table",
                       {"class": "table table-condensed table-striped"})
 
